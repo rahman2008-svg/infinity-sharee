@@ -49,6 +49,8 @@ class MainActivity : ComponentActivity() {
                     when (currentScreen) {
                         "send_pair", "scan_qr" -> currentScreen = "send_select"
                         "onboarding", "permission" -> { /* Stay on screen */ }
+                        // Don't silently drop an in-progress transfer on back press.
+                        "transferring" -> { /* Require explicit cancel from the screen itself */ }
                         else -> currentScreen = "home"
                     }
                 }
@@ -85,10 +87,14 @@ class MainActivity : ComponentActivity() {
                                 }
                             })
                             "send_select" -> {
-                                // We can use the initialTabForSend configuration
-                                SendFileSelectorScreen(viewModel, onNavigate = { route ->
-                                    currentScreen = route
-                                })
+                                // FIX: pass the selected category tab through to the screen.
+                                SendFileSelectorScreen(
+                                    viewModel,
+                                    initialTab = initialTabForSend,
+                                    onNavigate = { route ->
+                                        currentScreen = route
+                                    }
+                                )
                             }
                             "send_pair" -> SendPairScreen(viewModel, onNavigate = { route ->
                                 currentScreen = route
