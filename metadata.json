@@ -1,0 +1,6 @@
+{
+  "name": "Infinity Share",
+  "description": "Fast and secure peer-to-peer file transfer, phone cloning, and media management application.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
